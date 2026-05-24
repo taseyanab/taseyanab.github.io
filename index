@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taseyana Booker-Hopkins | Cybersecurity & CIS Portfolio</title>
+    <style>
+        /* Modern Tech/Cybersecurity Palette */
+        :root {
+            --bg-primary: #0f172a; /* Deep dark blue-gray */
+            --bg-secondary: #1e293b; /* Card background */
+            --accent: #10b981; /* Emerald/Cyber green */
+            --accent-hover: #059669;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Container & Sections */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 6rem 0 3rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Hero / Header Section */
+        #hero {
+            padding-top: 10rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary {
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Contact Badges */
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .badge:hover {
+            border-color: var(--accent);
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        /* Grid Layouts */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        /* Cards (Experience & Projects) */
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--text-main);
+        }
+
+        .card-subtitle {
+            color: var(--accent);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .card-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .card bullets {
+            margin-top: 0.75rem;
+            padding-left: 1.2rem;
+        }
+
+        .card li {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Two column grid for Ed & Skills */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 2.2rem; }
+        }
+
+        /* Skills Tags */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Awards styling */
+        .award-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        }
+        
+        .award-item:last-child {
+            border-bottom: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="nav-logo">TBH // SECURE</a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#education">Education & Skills</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <section id="about">
+            <div id="hero">
+                <h1>Taseyana Booker-Hopkins</h1>
+                <div class="subtitle">Computer Information Systems Major | Cybersecurity Concentration</div>
+                
+                <div class="contact-info">
+                    <span class="badge">📍 Atlanta, GA</span>
+                    <a href="tel:6149566887" class="badge">📞 (614) 956-6887</a>
+                    <a href="mailto:tbookerhopkins1@student.gsu.edu" class="badge">✉️ tbookerhopkins1@student.gsu.edu</a>
+                    <a href="#" class="badge">🔗 LinkedIn Profile</a> </div>
+
+                <p class="summary">
+                    Ambitious young professional with a passion for learning and development. Experienced in analyzing digital breaches, mitigating institutional risks, and building technical projects designed for non-technical users. Enthusiastic about collaborating in technical teams and implementing robust protection metrics under experienced industry professionals.
+                </p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title">Relevant Experience</h2>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Cybersecurity Assistant (Work-Study)</div>
+                        <div class="card-subtitle">Georgia State University</div>
+                    </div>
+                    <div class="card-date">Oct 2024 - May 2026</div>
+                </div>
+                <ul class="card-bullets">
+                    <li>Supported proactive risk management initiatives to reduce business and IT threats across the university infrastructure.</li>
+                    <li>Researched industry-standard security solutions, policies, and practices aligned with Institutional Information Security Annual Plans.</li>
+                    <li>Aided security analysts in preserving, collecting, and analyzing electronically stored information (ESI) during threat assessments.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Data Analyst / Administrative Assistant</div>
+                        <div class="card-subtitle">Anna Burns Permanent Cosmetics LLC</div>
+                    </div>
+                    <div class="card-date">Jun 2024 - Jul 2025</div>
+                </div>
+                <ul class="card-bullets">
+                    <li>Managed an AI-powered appointment scheduling system optimizing customer inquiry response workflows.</li>
+                    <li>Maintained and updated a secure client database responsible for seamless data management and asset confidentiality.</li>
+                    <li>Performed critical data conversion and migration tasks, mapping data structure validation between distinct business legacy systems.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">Digital Media Content Creator</div>
+                        <div class="card-subtitle">Responsival LLC</div>
+                    </div>
+                    <div class="card-date">Aug 2024 - May 2025</div>
+                </div>
+                <ul class="card-bullets">
+                    <li>Collaborated directly with NBA coach Ashton Gibbs to produce high-impact content for his affiliate partnership with Adidas.</li>
+                    <li>Directed, captured, and engineered engaging mixtape videos, photography, and creative campaigns to elevate brand authority.</li>
+                    <li>Managed end-to-end media post-production editing utilizing Adobe Creative Software suites to meet rigid distribution finishes.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">Featured Projects</h2>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">🛠️ Post-Surgery Recovery Tracker</div>
+                        <div class="card-subtitle">RISE Fellowship Social Impact Initiative</div>
+                    </div>
+                    <div class="card-date">Cybersecurity Fellow (2024 - 2026)</div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;">
+                    Developed system mockups and architecture logic for a secure patient-facing tool built to provide personalized post-operative care workflows, evaluate real-time metric thresholds, and trigger automated alerts based on clinical symptom severity.
+                </p>
+                <div class="skills-container" style="margin-top: 0.5rem;">
+                    <span class="skill-tag">Git / GitHub</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">UI/UX Design</span>
+                    <span class="skill-tag">Data Privacy</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">🛍️ E-Commerce Systems Engineering</div>
+                        <div class="card-subtitle">Founder & Online Store Owner • Holiday Haven</div>
+                    </div>
+                    <div class="card-date">Mar 2021 - Apr 2023</div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;">
+                    Built and scaled a digital marketplace. Customized pre-built Liquid/Shopify environments, integrated data-driven marketing tracking layers that boosted target user conversions by 25%, and deployed customer-retention elements including custom-built Q&A / Chatbot automation widgets.
+                </p>
+                <div class="skills-container" style="margin-top: 0.5rem;">
+                    <span class="skill-tag">Shopify CMS</span>
+                    <span class="skill-tag">Automation Widgets</span>
+                    <span class="skill-tag">Data Analytics</span>
+                    <span class="skill-tag">Customer Automation</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <div class="grid-2">
+                <div>
+                    <h2 class="section-title">Education</h2>
+                    <div style="margin-bottom: 1.5rem;">
+                        <div style="font-weight: 600; color: var(--text-main);">Georgia State University</div>
+                        <div style="color: var(--accent); font-size: 0.95rem;">B.B.A. Computer Information Systems (Cybersecurity)</div>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">Junior | GPA: 3.69/4.0 | Expected 2027</div>
+                        <div style="color: var(--text-muted); font-size: 0.85rem; font-style: italic; margin-top: 0.2rem;">Minor: Film & Media</div>
+                        
+                        <div style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">
+                            • Cybersecurity Fellow, RISE in Computing<br>
+                            • Member, Women in Technology (WIT)<br>
+                            • Member, Rising Technology Professional Association
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="font-weight: 600; color: var(--text-main);">Georgia Piedmont Technical College</div>
+                        <div style="color: var(--accent); font-size: 0.95rem;">Dual Enrollment Graduate (Entrepreneurship)</div>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">GPA: 4.0/4.0 | Aug 2022 - May 2024</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="section-title">Core Skills</h2>
+                    <div class="skills-container" style="margin-bottom: 2rem;">
+                        <span class="skill-tag">Information Security</span>
+                        <span class="skill-tag">Risk Management</span>
+                        <span class="skill-tag">Risk Mitigation</span>
+                        <span class="skill-tag">Python Development</span>
+                        <span class="skill-tag">Git & Version Control</span>
+                        <span class="skill-tag">Data Migration & Entry</span>
+                        <span class="skill-tag">AI Automation Systems</span>
+                        <span class="skill-tag">Adobe Creative Software</span>
+                        <span class="skill-tag">Project Management</span>
+                        <span class="skill-tag">Microsoft Office Suite</span>
+                        <span class="skill-tag">Google G-Suite</span>
+                    </div>
+
+                    <h2 class="section-title">Honors & Awards</h2>
+                    <div class="award-item"><span>CIS Award of Excellence</span> <strong style="color:var(--accent);">GSU</strong></div>
+                    <div class="award-item"><span>Certificate of Special Congressional Recognition</span> <strong>Honor</strong></div>
+                    <div class="award-item"><span>Dean’s List</span> <strong>5x Recipient</strong></div>
+                    <div class="award-item"><span>President’s List</span> <strong>2x Recipient</strong></div>
+                    <div class="award-item"><span>Honor Roll</span> <strong>3x Recipient</strong></div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Taseyana Booker-Hopkins. Handcrafted using HTML & CSS.</p>
+    </footer>
+
+</body>
+</html>
