@@ -49,4 +49,4 @@ I am an ambitious CIS student with a deep passion for digital asset protection, 
 
 ### 📫 Connect With Me
 * **Email:** [tbookerhopkins1@student.gsu.edu](mailto:tbookerhopkins1@student.gsu.edu)
-* **LinkedIn:** [Add Your Custom LinkedIn URL Link Here!]
+* **LinkedIn:** https://www.linkedin.com/in/taseyana
