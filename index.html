@@ -127,6 +127,26 @@
             background-color: rgba(16, 185, 129, 0.1);
         }
 
+        /* Project Specific Code Badge Override */
+        .code-badge {
+            display: inline-block;
+            margin-top: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            background-color: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .code-badge:hover {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
         /* Grid Layouts */
         .section-title {
             font-size: 1.8rem;
@@ -184,7 +204,7 @@
             font-size: 0.9rem;
         }
 
-        .card bullets {
+        .card-bullets {
             margin-top: 0.75rem;
             padding-left: 1.2rem;
         }
@@ -269,7 +289,8 @@
                     <span class="badge">📍 Atlanta, GA</span>
                     <a href="tel:6149566887" class="badge">📞 (614) 956-6887</a>
                     <a href="mailto:tbookerhopkins1@student.gsu.edu" class="badge">✉️ tbookerhopkins1@student.gsu.edu</a>
-                    <a href="#" class="badge">🔗 LinkedIn Profile</a> </div>
+                    <a href="#" class="badge" target="_blank">🔗 LinkedIn Profile</a>
+                </div>
 
                 <p class="summary">
                     Ambitious young professional with a passion for learning and development. Experienced in analyzing digital breaches, mitigating institutional risks, and building technical projects designed for non-technical users. Enthusiastic about collaborating in technical teams and implementing robust protection metrics under experienced industry professionals.
@@ -332,21 +353,41 @@
             <div class="card">
                 <div class="card-header">
                     <div>
-                        <div class="card-title">🛠️ Post-Surgery Recovery Tracker</div>
-                        <div class="card-subtitle">RISE Fellowship Social Impact Initiative</div>
+                        <div class="card-title">🛠️ Secure Post-Surgery Recovery Tracker</div>
+                        <div class="card-subtitle">Systems Engineering & Logic Prototype</div>
                     </div>
-                    <div class="card-date">Cybersecurity Fellow (2024 - 2026)</div>
+                    <div class="card-date">Cybersecurity Fellowship</div>
                 </div>
                 <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;">
-                    Developed system mockups and architecture logic for a secure patient-facing tool built to provide personalized post-operative care workflows, evaluate real-time metric thresholds, and trigger automated alerts based on clinical symptom severity.
+                    Developed a functional Python terminal application built with robust programmatic input validation blocks (`try/except`) to prevent buffer exploits. Translates medical symptom logic into automated diagnostic alert triggers while producing structured JSON logs tracking audit timestamps.
                 </p>
-                <div class="skills-container" style="margin-top: 0.5rem;">
-                    <span class="skill-tag">Git / GitHub</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">UI/UX Design</span>
-                    <span class="skill-tag">Data Privacy</span>
-                    <a href="https://github.com/taseyanab/post-surgery-tracker" class="badge" target="_blank" style="display:inline-block; margin-top:10px; color:var(--accent); border-color:var(--accent);">📁 View Source Code on GitHub</a>
+                <div class="skills-container" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                    <span class="skill-tag">Python 3</span>
+                    <span class="skill-tag">Input Validation</span>
+                    <span class="skill-tag">Data Sanitization</span>
+                    <span class="skill-tag">JSON Event Auditing</span>
                 </div>
+                <a href="https://github.com/taseyanab/post-surgery-tracker" class="code-badge" target="_blank">📁 View Source Code on GitHub</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div>
+                        <div class="card-title">📸 Digital Production Framework: Photography Pose Guide</div>
+                        <div class="card-subtitle">Asset Optimization & Content Workflows</div>
+                    </div>
+                    <div class="card-date">Media Asset Repository</div>
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 0.5rem;">
+                    Designed and deployed a structured visual asset guide used to map camera configurations, optimize focal angles, and coordinate talent positioning. Engineered to maximize efficiency and maintain strict brand compliance rules during fast-paced corporate marketing photoshoots.
+                </p>
+                <div class="skills-container" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                    <span class="skill-tag">Creative Direction</span>
+                    <span class="skill-tag">Workflow Optimization</span>
+                    <span class="skill-tag">Asset Architecture</span>
+                    <span class="skill-tag">Brand Compliance</span>
+                </div>
+                <a href="https://github.com/taseyanab/YOUR-POSE-GUIDE-REPO-NAME" class="code-badge" target="_blank">📁 View Creative Repository</a>
             </div>
 
             <div class="card">
