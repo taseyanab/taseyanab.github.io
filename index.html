@@ -1694,7 +1694,10 @@ document.addEventListener("keydown", e => {
 });
 
 /* ===== Visitor book (shared notes) ===== */
-const GB = {entries:[], state:"loading", canPost:false, db:null};
+/* Visitor notes use Supabase. Paste your Project URL and the anon public key (Supabase: Project Settings, API). Never paste the service_role key. */
+const SB = {url:"", key:""};
+const SB_ON = () => !!(SB.url && SB.key);
+const GB = {entries:[], state:"loading"};
 let bookPage = 0; const PER = 5;
 const bookPages = () => 1 + Math.max(1, Math.ceil(GB.entries.length / PER));
 function renderBook(){
@@ -1710,7 +1713,7 @@ function renderBook(){
     const items = GB.entries.slice((bookPage-1)*PER, bookPage*PER);
     inner = items.length
       ? items.map(e=>`<div class="entry"><div class="tx">${esc(e.text)}</div><div class="by">${esc(e.name || "a stranger")}${e.at ? ", " + new Date(e.at).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"}) : ""}</div></div>`).join("")
-      : `<div class="empty">${GB.state==="loading" ? "opening the book…" : GB.state==="offline" ? "The notes can’t be reached right now. Try again in a bit." : "No notes yet. Be the first to leave something."}</div>`;
+      : `<div class="empty">${GB.state==="loading" ? "opening the book…" : GB.state==="offline" ? "The notes can’t be reached right now. Try again in a bit." : GB.state==="none" ? "The book opens soon." : "No notes yet. Be the first to leave something."}</div>`;
   }
   el.innerHTML = `<div class="book">${inner}</div>
     <div class="pager"><button class="arr" data-page="-1" ${bookPage===0?"disabled":""} aria-label="Previous page">‹</button>
@@ -1722,41 +1725,38 @@ function composer(){
   const s = document.createElement("div"); s.className = "compose";
   s.innerHTML = `<div class="panel2" role="dialog" aria-modal="true" aria-label="Leave something">
     <h4>leave something</h4>
-    <p>${GB.canPost ? "Your note goes straight into the book." : "Your note opens in your email app. Tassie adds it to the book after she reads it."}</p>
+    <p>Tassie reads each note before it appears in the book.</p>
     <input id="gbName" maxlength="40" placeholder="your name (or leave blank)" aria-label="Your name">
     <textarea id="gbText" maxlength="280" placeholder="a note, a quote, a story…" aria-label="Your note"></textarea>
     <div class="err" id="gbErr"></div>
-    <div class="acts"><button class="btn ghost" data-s="x">cancel</button><button class="btn" data-s="post">${GB.canPost ? "add to the book" : "send to Tassie"}</button></div></div>`;
+    <div class="acts"><button class="btn ghost" data-s="x">cancel</button><button class="btn" data-s="post">send to the book</button></div></div>`;
   document.body.appendChild(s); s.querySelector("#gbText").focus();
   s.addEventListener("click", async e => {
     if (e.target === s || e.target.dataset.s === "x") return s.remove();
     if (e.target.dataset.s !== "post") return;
     const name = s.querySelector("#gbName").value.trim(), text = s.querySelector("#gbText").value.trim();
     if (!text) return s.querySelector("#gbErr").textContent = "Write a note first.";
-    if (!GB.canPost){
-      location.href = "mailto:tassiejolie@gmail.com?subject=" + encodeURIComponent("Visitor book note") + "&body=" + encodeURIComponent(text + "\n\n" + (name || "a stranger"));
-      return s.remove();
-    }
+    if (!SB_ON()){ s.querySelector("#gbErr").textContent = "The book isn’t open yet. Try again soon."; return; }
     e.target.disabled = true;
-    try { await GB.db.collection("guestbook").add({name, text, at: Date.now()}); s.remove(); bookPage = 1; renderBook(); }
-    catch(err){ e.target.disabled = false; s.querySelector("#gbErr").textContent = err?.code === "quota_exceeded" ? "The book is full. Remove some older notes first." : "Couldn’t add the note. Check your connection and try again."; }
+    try {
+      const r = await fetch(`${SB.url}/rest/v1/notes`, {method:"POST", headers:{apikey:SB.key, Authorization:`Bearer ${SB.key}`, "Content-Type":"application/json", Prefer:"return=minimal"}, body: JSON.stringify({name: name.slice(0,40), message: text.slice(0,280)})});
+      if (!r.ok) throw new Error(String(r.status));
+      s.remove(); toast("Thanks! Your note shows once it’s approved.");
+    } catch { e.target.disabled = false; s.querySelector("#gbErr").textContent = "Couldn’t send the note. Check your connection and try again."; }
   });
 }
-(async () => {
-  const c = window.claude;
-  if (!c || !c.use){ GB.state = "none"; renderBook(); return; }
+async function loadNotes(){
+  if (!SB_ON()){ GB.state = "none"; renderBook(); return; }
   try {
-    const [db, user] = await Promise.all([c.use("db"), c.use("user")]);
-    if (!db){ GB.state = "none"; renderBook(); return; }
-    GB.db = db; GB.canPost = user ? !!(await user.canEdit()) : false;
-    const timer = setTimeout(() => { if (GB.state === "loading"){ GB.state = "offline"; renderBook(); } }, 10000);
-    db.collection("guestbook").orderBy("at","desc").limit(200).onSnapshot(snap => {
-      GB.entries = snap.docs.map(d => d.data());
-      if (!snap.metadata.fromCache){ clearTimeout(timer); GB.state = "ready"; }
-      if (!document.querySelector(".compose")) renderBook();
-    }, () => { clearTimeout(timer); GB.state = "offline"; renderBook(); });
-  } catch { GB.state = "none"; renderBook(); }
-})();
+    const r = await fetch(`${SB.url}/rest/v1/notes?select=name,message,created_at&approved=eq.true&order=created_at.desc&limit=200`, {headers:{apikey:SB.key, Authorization:`Bearer ${SB.key}`}});
+    if (!r.ok) throw new Error(String(r.status));
+    const rows = await r.json();
+    GB.entries = rows.map(x => ({name: x.name, text: x.message, at: Date.parse(x.created_at)}));
+    GB.state = "ready";
+  } catch { GB.state = "offline"; }
+  renderBook();
+}
+loadNotes();
 
 /* ===== Phone button: dials on phones, and always copies the number as a backup ===== */
 function toast(msg){
