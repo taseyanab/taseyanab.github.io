@@ -518,7 +518,8 @@ img{max-width:100%}
 .dots i{width:6px;height:6px;border-radius:50%;background:rgba(42,26,20,.25)}
 .dots i.on{background:var(--ink)}
 .shead{display:flex;gap:16px;align-items:center;margin-bottom:16px}
-.appicon{width:76px;height:76px;border-radius:18px;display:grid;place-items:center;color:#fff;font-family:var(--serif);font-style:italic;font-size:36px;flex:none;box-shadow:0 6px 14px rgba(0,0,0,.2)}
+.appicon img{position:absolute;inset:0;width:100%;height:100%;border-radius:18px}
+.appicon{position:relative;overflow:hidden;width:76px;height:76px;border-radius:18px;display:grid;place-items:center;color:#fff;font-family:var(--serif);font-style:italic;font-size:36px;flex:none;box-shadow:0 6px 14px rgba(0,0,0,.2)}
 .strip3{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:4px 0 6px}
 .strip3.four{grid-template-columns:repeat(2,1fr)}
 @media (min-width:640px){.strip3.four{grid-template-columns:1.3fr 1fr 1fr 1fr}}
@@ -1614,7 +1615,7 @@ const SHEETS = {
     <h2 id="sheetTitle">${esc(v.title)}</h2><p class="role">${esc(v.role)} for ${esc(v.where)}</p>
     <h3>About</h3><p>${esc(v.about)}</p>`}; },
   project: i => { const p = PROJECTS[i]; if (!p) return null; return {back:"Projects", html:`
-    <div class="shead"><div class="appicon" style="background:linear-gradient(150deg,${p.c[0]},${p.c[1]})">${esc(p.name[0])}</div>
+    <div class="shead"><div class="appicon" style="background:linear-gradient(150deg,${p.c[0]},${p.c[1]})"><img src="images/logos/app-${esc(p.id)}.svg" alt="" onerror="this.remove()">${esc(p.name[0])}</div>
       <div><h2 id="sheetTitle" style="margin:0">${esc(p.name)}</h2><p class="role" style="margin:4px 0 0">${esc(p.tag)}</p></div></div>
     <div class="strip3 four"><div><div class="k">my role</div><div class="v">${esc(roleOf(p))}</div></div><div><div class="k">category</div><div class="v">${esc(p.cat)}</div></div><div><div class="k">built at</div><div class="v">${esc(p.at)}</div></div><div><div class="k">status</div><div class="v">${esc(p.status)}</div></div></div>
     ${p.shots && p.shots.length ? `<h3>Screens</h3><div class="shots">${p.shots.map((src,k)=>src ? `<a class="ph shot" href="${esc(src)}" target="_blank" rel="noopener"><img src="${esc(src)}" alt="${esc(p.name)} screen ${k+1}" loading="lazy"></a>` : `<div class="ph" style="${tone(k+i*2)}"><span class="cap">screen ${k+1}</span></div>`).join("")}</div>` : ""}

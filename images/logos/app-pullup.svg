@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F2C14E"/><stop offset="1" stop-color="#B5651D"/></linearGradient></defs>
+<rect width="128" height="128" rx="28" fill="url(#g)"/>
+<circle cx="20" cy="22" r="4" fill="#fff" opacity=".5"/><circle cx="108" cy="104" r="3" fill="#fff" opacity=".5"/>
+<path d="M24 42 H104 V58 A10 10 0 0 0 104 78 V86 H24 V78 A10 10 0 0 0 24 58 Z" fill="#FFFFFF"/><line x1="82" y1="44" x2="82" y2="84" stroke="#B5651D" stroke-width="3" stroke-dasharray="4 4"/><text x="50" y="72" font-family="Georgia,serif" font-size="20" font-weight="bold" fill="#B5651D">PU</text>
+</svg>
